@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import ListCa from './Components/ListCa';
+
+
+export default class App extends Component {
+  state = {
+   Personne: {
+   fullName:"Maaroufi Sami",
+   bio :"Hi ",
+   imgSrc:"",
+  profession:"student"},
+  shows:false,
+  time:0
+  
+  }
+componentDidMount(){
+  setInterval(()=>{
+this.setState({time:this.state.time+1})
+  },1000)
 }
-
-export default App;
+  Change = () => {
+    this.setState({
+      shows: !this.state.shows,
+      time:0
+    })
+  }
+  
+  render() {
+    return (
+      <div style={{display:"flex",flexDirection:"column", margin:"0px 500px", }}>
+     <button className='btn' onClick={this.Change} style={{margin:"40px"}}>{this.state.shows?"Disspear":"Appear"}</button>
+     {this.state.shows &&<ListCa Personne={this.state.Personne}/>}
+     <p>{this.state.shows&&this.state.time}</p>
+      </div>
+    )
+  }
+}
